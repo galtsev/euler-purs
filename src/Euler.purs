@@ -1,6 +1,10 @@
-module Euler where
+module Euler (module Euler, module Data.Traversable) where
 
 import Prelude
+import Data.Int as I
+import Data.String (toCharArray,singleton)
+import Data.Array as A
+import Data.Traversable (sum)
 
 prime:: Int -> Boolean
 prime n = ip 2
@@ -14,3 +18,10 @@ foldRange f acc start end = fr acc start
     where 
         fr a cur | cur>end = a
         fr a cur = fr (f a cur) (cur+1)
+
+fact:: Int -> Int
+fact 0 = 1
+fact n = n*fact (n-1)
+
+digits:: Int -> Array Int
+digits n = show n # toCharArray # A.mapMaybe (singleton >>> I.fromString)
