@@ -11,7 +11,10 @@ import Test.Assert (ASSERT)
 -- import Test.E23 as E23
 -- import Test.E24 (testMe)
 -- import Test.E26 (testMe)
-import Test.E27 (testMe)
+-- import Test.E27 (testMe)
+-- import Test.E30 (testMe)
+-- import Test.E31 (testMe)
+import Test.E32 (testMe)
 
 
 
