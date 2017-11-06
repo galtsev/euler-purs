@@ -7,6 +7,7 @@ import Data.Array as A
 import Data.Traversable (sum)
 
 prime:: Int -> Boolean
+prime 1 = false
 prime n = ip 2
 	where
 		ip x | x * x > n = true
