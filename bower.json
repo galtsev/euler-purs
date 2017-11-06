@@ -13,7 +13,11 @@
     "purescript-bigints": "^3.2.0",
     "purescript-assert": "^3.0.0",
     "purescript-test-unit": "^13.0.0",
-    "purescript-sets": "^3.0.0"
+    "purescript-sets": "^3.0.0",
+    "purescript-node-fs": "^4.0.0",
+    "purescript-pairs": "^5.0.0",
+    "purescript-sequences": "^1.0.3",
+    "purescript-numbers": "^5.0.0"
   },
   "devDependencies": {
     "purescript-psci-support": "^3.0.0"
