@@ -17,7 +17,8 @@ import Test.Assert (ASSERT)
 -- import Test.E32 (testMe)
 -- import Test.E35 (testMe)
 -- import Test.E37 (testMe)
-import Test.E38 (testMe)
+-- import Test.E38 (testMe)
+import Test.E39 (testMe)
 
 
 
