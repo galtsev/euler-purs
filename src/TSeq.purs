@@ -10,8 +10,9 @@ gen 0 = Nothing
 gen n = Just (Tuple n (n-1))
 
 
-gseq:: Int -> Seq Int
+gseq∷ Int → Seq Int
 gseq n = gs empty n
 	where
 		gs s 0 = s
 		gs s x = gs (cons x s) (x-1)
+
