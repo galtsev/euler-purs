@@ -1,12 +1,13 @@
 module E40 where
 
 import Prelude
-import Data.String (charAt,singleton)
+import Data.String (charAt,charCodeAt,singleton)
 import Data.Int (pow,fromString)
-import Data.Maybe (Maybe(..))
-import Data.Foldable (foldl)
+import Data.Maybe (Maybe(..),maybe)
+import Data.Foldable (foldl,foldMap)
 import Control.Apply (lift2)
 import Data.List ((..))
+import Data.Char (toCharCode)
 
 -- dn n base first
 -- 1..9 base: 1; p: 1; first: 1; consume chars: 9*1
@@ -32,3 +33,9 @@ dx n b p first = let
 
 e40:: Unit -> Maybe Int
 e40 unit = (0..6) # map (pow 10) # map (dn 1 1 1) # foldl (lift2 (*)) (Just 1)
+
+e40':: Unit -> Int
+e40' unit = let 
+        arr = (1..200000) # foldMap show 
+        z = toCharCode '0' 
+    in (0..6) # map (pow 10) # map (\n->charCodeAt (n-1) arr # map (_-z)) # foldl (lift2 (*)) (Just 1) # maybe (-1) id
