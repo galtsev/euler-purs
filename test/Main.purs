@@ -5,20 +5,8 @@ import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
 import Test.Assert (ASSERT)
 
-import Test.Euler (testMe)
--- import Test.E21 as E21
--- import Test.E22 as E22
--- import Test.E23 as E23
--- import Test.E24 (testMe)
--- import Test.E26 (testMe)
--- import Test.E27 (testMe)
--- import Test.E30 (testMe)
--- import Test.E31 (testMe)
--- import Test.E32 (testMe)
--- import Test.E35 (testMe)
--- import Test.E37 (testMe)
--- import Test.E38 (testMe)
--- import Test.E40 (testMe)
+-- import Test.Euler (testMe)
+import Test.E43 (testMe)
 
 
 

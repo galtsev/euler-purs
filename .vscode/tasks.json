@@ -24,7 +24,10 @@
             "taskName": "Purescript test",
             "type": "shell",
             "command": "pulp test",
-            "group": "test",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
             "problemMatcher": []
         }
     ]
