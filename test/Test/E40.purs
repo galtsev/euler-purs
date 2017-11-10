@@ -13,6 +13,7 @@ import E40 (dn)
 z:: Int
 z = toCharCode '0'
 
+exp:: String -> Int -> Maybe Int
 exp s n = charCodeAt (n-1) s # map (_-z)
 
 testMe:: ∀ e. TestMe e

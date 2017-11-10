@@ -4,6 +4,7 @@ import Prelude
 import Data.Int as I
 import Data.String (toCharArray,singleton)
 import Data.Array as A
+import Data.List (List(..),(:))
 import Data.Traversable (sum)
 
 prime:: Int -> Boolean
@@ -26,3 +27,18 @@ fact n = n*fact (n-1)
 
 digits:: Int -> Array Int
 digits n = show n # toCharArray # A.mapMaybe (singleton >>> I.fromString)
+
+type Permutation a = List a
+
+reverse:: forall a. List a -> List a -> List a
+reverse tail Nil = tail
+reverse tail (x:xs) = reverse (x:tail) xs
+
+foldPermutations:: forall a b. (a->Permutation b->a) -> a -> Permutation b -> a
+foldPermutations f a p = f2 f a Nil p
+	where
+		f2:: forall a b. (a->Permutation b->a) -> a -> Permutation b -> Permutation b -> a
+		f2 f a _ Nil = a
+		f2 f a Nil p@(x:Nil) = f a p
+		f2 f a head (x:xs) = f2 (\acc p-> f acc (x:p)) (f2 f a (x:head) xs) Nil (reverse xs head)
+
