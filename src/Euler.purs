@@ -25,6 +25,13 @@ fact:: Int -> Int
 fact 0 = 1
 fact n = n*fact (n-1)
 
+findFirst:: forall a. (a->a) -> (a->Boolean) -> a -> a
+findFirst inc predicat state | predicat state = state
+findFirst inc predicat state = findFirst inc predicat (inc state)
+
+increment:: Int -> Int
+increment v = v+1
+
 digits:: Int -> Array Int
 digits n = show n # toCharArray # A.mapMaybe (singleton >>> I.fromString)
 
