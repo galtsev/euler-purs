@@ -6,7 +6,7 @@ import Control.Monad.Eff.Console (CONSOLE, log)
 import Test.Assert (ASSERT)
 
 -- import Test.Euler (testMe)
-import Test.E51 (testMe)
+import Test.E54 (testMe)
 
 
 
