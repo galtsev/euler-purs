@@ -14,6 +14,7 @@ import Node.FS.Sync (readTextFile)
 import Node.Encoding (Encoding(UTF8))
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Exception (EXCEPTION)
+import Euler (reverse)
 
 
 import E54Types (Card(..), Hand, Rank(..), Value, seq, ace, parseHand)
@@ -74,8 +75,9 @@ rank h = let
     in r1 (group sh) (straight sh)
 
 compareHandValues:: Hand -> Hand -> Ordering
-compareHandValues h1 h2 = cc (sort h1) (sort h2)
+compareHandValues h1 h2 = cc (revSort h1) (revSort h2)
     where
+        revSort h = sort h # reverse Nil
         cc Nil Nil = EQ
         cc (x:xs) (y:ys) = if x==y then cc xs ys else compare x y
         cc _ _ = unsafeCrashWith "hands of different length in compareHandValues"
