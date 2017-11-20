@@ -3,10 +3,20 @@ module E54 where
 import Prelude
 import Data.Maybe (Maybe(..))
 import Data.List (List(..),(:),sort)
+import Data.Array as A
+import Data.String as S
+import Data.Tuple (Tuple(..))
 import Data.Foldable (all)
 import Partial.Unsafe (unsafeCrashWith)
 
-import E54Types (Card(..), Hand, Rank(..), Value, seq)
+import Node.FS (FS)
+import Node.FS.Sync (readTextFile)
+import Node.Encoding (Encoding(UTF8))
+import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Exception (EXCEPTION)
+
+
+import E54Types (Card(..), Hand, Rank(..), Value, seq, ace, parseHand)
 
 data Gr = Empty | Gr Value Int
 type Groups = {c2:: List Value, c3:: Maybe Value, c4:: Maybe Value}
@@ -51,7 +61,7 @@ rank h = let
         sh = sort h
         fl = flush sh
         r1:: Groups -> Maybe Value -> Rank
-        r1 _ (Just ace) | fl = RoyalFlush
+        r1 _ (Just val) | fl && val==ace = RoyalFlush
         r1 _ (Just val) | fl = StraightFlush val
         r1 {c4:Just val} _ = Four val
         r1 {c2:(v2:Nil), c3:Just v3} _ = FullHouse v3 v2
@@ -62,3 +72,28 @@ rank h = let
         r1 {c2:(val:Nil)} _ = Pair val
         r1 _ _ = High (high sh)
     in r1 (group sh) (straight sh)
+
+compareHandValues:: Hand -> Hand -> Ordering
+compareHandValues h1 h2 = cc (sort h1) (sort h2)
+    where
+        cc Nil Nil = EQ
+        cc (x:xs) (y:ys) = if x==y then cc xs ys else compare x y
+        cc _ _ = unsafeCrashWith "hands of different length in compareHandValues"
+
+win:: Hand -> Hand -> Ordering
+win h1 h2 = let r=compare (rank h1) (rank h2) in if r==EQ then compareHandValues h1 h2 else r
+
+parseGame:: String -> Tuple Hand Hand
+parseGame s = let
+        parts = S.split (S.Pattern " ") s
+        left = A.take 5 parts # S.joinWith " "
+        right = A.drop 5 parts # S.joinWith " "
+    in Tuple (parseHand left) (parseHand right)
+
+ee:: Array String -> Int
+ee games = A.filter (parseGame >>> (\(Tuple h1 h2)->win h1 h2==GT)) games # A.length
+
+e54:: forall e. Eff (fs:: FS, exception:: EXCEPTION | e) Int
+e54 = do
+    body <- readTextFile UTF8 "files/p054_poker.txt"
+    pure (S.split (S.Pattern "\n") body # A.filter (\s -> S.trim s/="") # ee)
