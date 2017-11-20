@@ -76,4 +76,14 @@ testMe = do
     assert $ play "2D 9C AS AH AC 3D 6D 7D TD QD" LT
     assert $ play "4D 6S 9H QH QC 3D 6D 7H QD QS" GT
     assert $ play "2H 2D 4C 4D 4S 3C 3D 3S 9S 9D" GT
+    -- from real file
+    assert $ play "KH JS 4H 5D 9D TC TD QC JD TS" LT -- High king < Three 10
+    assert $ play "QS QD AC AD 4C 6S 2D AS 3H KC" GT -- TwoPairs ace quin > High ace
+    assert $ play "4C 7C 3C TD QS 9C KC AS 8D AD" LT -- High queen < Pair ace
+    assert $ play "KC 7H QC 6D 8H 6S 5S AH 7S 8C" LT -- High king < High ace
+    assert $ play "3S AD 9H JC 6D JD AS KH 6S JH" LT -- High ace < Pair jack
+    assert $ play "AD 3D TS KS 7H JH 2D JS QD AC" LT -- High ace < Pair jack
+    assert $ play "9C JD 7C 6D TC 6H 6C JC 3D 3S" LT -- High jack < TwoPairs 6 3
+    assert $ play "QC KC 3S JC KD 2C 8D AH QS TS" GT -- Pair king > High ace
+    assert $ play "AS KD 3D JD 8H 7C 8C 5C QD 6C" GT -- High ace > High queen
     
