@@ -2,7 +2,10 @@ module E60 where
 
 import Prelude
 import Math (trunc,remainder)
-import Data.List (List(..),(:),foldl)
+import Data.Int (toNumber)
+import Data.List (List(..),(:),filter,range)
+import Data.Foldable (sum,minimum)
+import Data.Maybe (Maybe)
 
 import Eu2 (prime)
 
@@ -16,9 +19,14 @@ join a b = let
         merge n (x:xs) = merge (n*10.0+x) xs
     in merge a (digits Nil b)
 
-countPairs:: List Number -> Int -> Int
-countPairs Nil n = n
-countPairs (x:xs) n = countPairs xs (n + cp x xs)
-    where
-        pair a b = prime (join a b) && prime (join b a)
-        cp v vs = foldl (\acc x-> if pair v x then acc+1 else acc) 0 vs
+
+pair:: Number -> Number -> Boolean
+pair a b = prime (join a b) && prime (join b a)
+
+mx:: Int -> List Number -> List (List Number)
+mx 2 (x:xs) = map (\e->x:e:Nil) $ filter (pair x) xs
+mx lvl Nil = Nil
+mx lvl (x:xs) = (map (x:_) $ mx (lvl-1) $ filter (pair x) xs) <> mx lvl xs
+
+e60:: Unit -> Maybe Number
+e60 unit = range 2 10000 # map toNumber # filter prime # mx 5 # map sum # minimum
