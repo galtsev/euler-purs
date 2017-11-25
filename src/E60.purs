@@ -11,14 +11,9 @@ import Eu2 (prime)
 
 join:: Number -> Number -> Number
 join a b = let
-        digits:: List Number -> Number -> List Number
-        digits l 0.0 = l
-        digits l n = digits (remainder n 10.0:l) (trunc (n/10.0))
-        merge:: Number -> List Number -> Number
-        merge n Nil = n
-        merge n (x:xs) = merge (n*10.0+x) xs
-    in merge a (digits Nil b)
-
+        mu p | p>b = p
+        mu p = mu (p*10.0)
+    in a*(mu 1.0)+b
 
 pair:: Number -> Number -> Boolean
 pair a b = prime (join a b) && prime (join b a)
