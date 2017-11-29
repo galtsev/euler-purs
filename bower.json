@@ -18,7 +18,9 @@
     "purescript-pairs": "^5.0.0",
     "purescript-sequences": "^1.0.3",
     "purescript-numbers": "^5.0.0",
-    "purescript-now": "^3.0.0"
+    "purescript-now": "^3.0.0",
+    "purescript-decimal": "^2.0.0",
+    "purescript-rationals": "^4.0.0"
   },
   "devDependencies": {
     "purescript-psci-support": "^3.0.0"
